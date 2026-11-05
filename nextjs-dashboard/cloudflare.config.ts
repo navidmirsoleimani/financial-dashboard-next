@@ -2,32 +2,32 @@ import { bindings, defineConfig, defineWorker } from "cf/config";
 import { createWorkersResponseStoreServiceBindingConfig } from "@vinext/cloudflare/cache/config";
 
 const responseStore = await createWorkersResponseStoreServiceBindingConfig({
-  worker: {
-    name: "nextjs-dashboard-response-store",
-    compatibilityDate: "2026-11-05",
-    compatibilityFlags: ["nodejs_compat"],
-  },
-  bucket: "nextjs-dashboard-response-store-cache-bodies",
+	worker: {
+		name: "nextjs-dashboard-response-store",
+		compatibilityDate: "2026-11-05",
+		compatibilityFlags: ["nodejs_compat"],
+	},
+	bucket: "nextjs-dashboard-response-store-cache-bodies",
 });
 
 export const responseStoreServiceBinding = responseStore.serviceBindingWorker;
 
 export default defineConfig({
-  worker: defineWorker({
-    ...responseStore.applicationWorker,
-    name: "nextjs-dashboard",
-    entrypoint: "vinext/server/fetch-handler",
-    compatibilityDate: "2026-11-05",
-    compatibilityFlags: ["nodejs_compat"],
-    assets: {
-      htmlHandling: "none",
-      notFoundHandling: "none",
-      runWorkerFirst: ["/*", "!/_next/static/*", "!/*/_next/static/*"],
-    },
-    env: {
-      ...responseStore.applicationWorker.env,
-      ASSETS: bindings.assets(),
-      IMAGES: bindings.images(),
-    },
-  }),
+	worker: defineWorker({
+		...responseStore.applicationWorker,
+		name: "financial-dashboard-next",
+		entrypoint: "vinext/server/fetch-handler",
+		compatibilityDate: "2026-11-05",
+		compatibilityFlags: ["nodejs_compat"],
+		assets: {
+			htmlHandling: "none",
+			notFoundHandling: "none",
+			runWorkerFirst: ["/*", "!/_next/static/*", "!/*/_next/static/*"],
+		},
+		env: {
+			...responseStore.applicationWorker.env,
+			ASSETS: bindings.assets(),
+			IMAGES: bindings.images(),
+		},
+	}),
 });
