@@ -3,5 +3,5 @@ packages:
 allowBuilds:
   bcrypt: true
   sharp: true
-  workerd: set this to true or false
+  workerd: false
 minimumReleaseAge: 2880
