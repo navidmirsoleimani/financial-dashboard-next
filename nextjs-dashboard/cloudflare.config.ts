@@ -14,6 +14,11 @@ export default defineConfig({
 		env: {
 			ASSETS: bindings.assets(),
 			IMAGES: bindings.images(),
+			POSTGRES_URL: bindings.secret(),
+			POSTGRES_URL_NON_POOLING: bindings.secret(),
+			AUTH_SECRET: bindings.secret(),
+
+			AUTH_URL: bindings.text("https://YOUR-PRODUCTION-DOMAIN/api/auth"),
 		},
 	}),
 });
